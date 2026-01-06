@@ -1,40 +1,41 @@
 #!/bin/bash
-# --- AI Deep Cleanup & Removal ---
+# --- AI Deep Cleanup ---
 
-echo "Initiating deep removal of AI agent footprints..."
+# Helper for a simple dot-spinner while waiting
+wait_dots() {
+  local pid=$1
+  while kill -0 "$pid" 2>/dev/null; do
+    printf "."
+    sleep 0.5
+  done
+  printf " Done!\n"
+}
 
-# 1. Kill the background 'Monkeys'
-echo "Killing background processes..."
-# -f matches the full command line, catching agents running via Node/Python
-pkill -9 -f "antigravity"
-pkill -9 -f "claude-code"
-pkill -9 -f "saoudrizwan.claude-dev"
-pkill -9 -f "cline"
-pkill -9 -f "aider"
-pkill -9 -f "openhands"
+echo "Starting AI Deep Cleanup..."
 
-# 2. Delete Persistence Folders (Memory/Configs)
-echo "Wiping persistent agent memory and configurations..."
+# 1. Claude
+printf "Cleaning Claude Code "
+(
+  npm uninstall -g @anthropic-ai/claude-code && \
+  rm -f ~/.local/bin/claude && \
+  rm -rf ~/.claude ~/.claude-code ~/.config/claude-code ~/.cache/claude-code ~/.claude.json
+) &>/dev/null & wait_dots $!
 
-# Antigravity (Google)
-rm -rf ~/.antigravity ~/.config/Antigravity ~/.cache/Antigravity ~/.gemini
+# 2. Cline
+printf "Cleaning Cline "
+(
+  code --uninstall-extension saoudrizwan.claude-dev --force && \
+  rm -rf ~/Cline ~/.config/Code/User/globalStorage/saoudrizwan.claude-dev && \
+  pkill -f "saoudrizwan.claude-dev"
+) &>/dev/null & wait_dots $!
 
-# Claude Code (Anthropic)
-rm -rf ~/.claude ~/.claude-code ~/.config/claude-code ~/.cache/claude-code ~/.claude.json
+# 3. Antigravity
+printf "Cleaning Antigravity "
+(
+  sudo apt remove -y antigravity anti-gravity && \
+  sudo apt autoremove -y && \
+  rm -rf ~/.antigravity ~/.gemini ~/.config/Antigravity ~/.cache/Antigravity && \
+  pkill -f antigravity
+) &>/dev/null & wait_dots $!
 
-# Cline / Claude-Dev (VS Code)
-rm -rf ~/Cline
-rm -rf ~/.config/Code/User/globalStorage/saoudrizwan.claude-dev
-
-# Aider & OpenHands
-rm -rf ~/.aider* # (Careful: OpenHands usually runs in Docker, but removes local logs/configs here)
-rm -rf ~/.openhands
-
-# 3. Final Package Cleanup
-if command -v antigravity &> /dev/null; then
-    sudo apt-get remove -y antigravity 2>/dev/null
-    sudo rm -f /etc/apt/sources.list.d/antigravity.list
-fi
-
-echo "-------------------------------------------"
-echo "Cleanup complete. Your system is now a blank slate."
+echo "Cleanup finished. System is clear."
