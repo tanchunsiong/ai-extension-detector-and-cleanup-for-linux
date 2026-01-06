@@ -24,9 +24,16 @@ printf "Cleaning Claude Code "
 # 2. Cline
 printf "Cleaning Cline "
 (
-  code --uninstall-extension saoudrizwan.claude-dev --force && \
-  rm -rf ~/Cline ~/.config/Code/User/globalStorage/saoudrizwan.claude-dev && \
-  pkill -f "saoudrizwan.claude-dev"
+  # 1. Kill the process first to release file locks
+  pkill -9 -f "saoudrizwan.claude-dev" || true
+  
+  # 2. Uninstall extension
+  code --uninstall-extension saoudrizwan.claude-dev --force || true
+  
+  # 3. Aggressive recursive delete (force)
+  # Using -rf with sudo if necessary, but usually -rf is enough
+  rm -rf "$HOME/Cline"
+  rm -rf "$HOME/.config/Code/User/globalStorage/saoudrizwan.claude-dev"
 ) &>/dev/null & wait_dots $!
 
 # 3. Antigravity
