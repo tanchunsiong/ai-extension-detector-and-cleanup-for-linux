@@ -1,80 +1,63 @@
 #!/bin/bash
-# --- 2026 Extreme AI Agent & Footprint Detective ---
+# --- 2026 Universal AI Footprint Detector ---
 
-# Define all known AI-related hidden directories & IDE paths
+# Comprehensive list of AI-related directories
 AI_DIRS=(
-    # Claude & Anthropic
+    # --- The Big Three (Anthropic, Google, VSCode) ---
     "$HOME/.claude" "$HOME/.claude-code" "$HOME/.config/claude-code" "$HOME/.cache/claude-code"
-    # Cline, RooCode & VS Code agents
-    "$HOME/Cline" "$HOME/RooCode" "$HOME/.config/Code/User/globalStorage/saoudrizwan.claude-dev"
-    # Google Antigravity & Gemini
     "$HOME/.antigravity" "$HOME/.gemini" "$HOME/.config/Antigravity" "$HOME/.cache/Antigravity"
-    # OpenCode & OpenDevin
+    "$HOME/Cline" "$HOME/RooCode" "$HOME/.config/Code/User/globalStorage/saoudrizwan.claude-dev"
+    
+    # --- Advanced Orchestrators & Agents ---
     "$HOME/.opencode" "$HOME/.open-devin" "$HOME/open-code" "$HOME/.config/opencode"
-    # Cursor, Windsurf & Continue
-    "$HOME/.cursor" "$HOME/.windsurf" "$HOME/.continue" "$HOME/.codeium" "$HOME/.config/Cursor"
-    # Aider & Misc CLI
-    "$HOME/.aider" "$HOME/.aider.conf.yml" "$HOME/.openhands" "$HOME/.supermaven"
-    # Local Inference
-    "$HOME/.ollama" "$HOME/.lmstudio"
+    "$HOME/.aider" "$HOME/.aider.conf.yml" "$HOME/.openhands" "$HOME/.agentfs"
+    "$HOME/.supermaven" "$HOME/.tabnine" "$HOME/.continue" "$HOME/.codeium"
+    
+    # --- AI-Native IDEs & Extensions ---
+    "$HOME/.cursor" "$HOME/.config/Cursor" "$HOME/.windsurf" "$HOME/.codeium/windsurf"
+    "$HOME/.zed" "$HOME/.config/zed" "$HOME/.jetbrains/ai-assistant"
+    
+    # --- Local Inference & Model Servers ---
+    "$HOME/.ollama" "$HOME/.lmstudio" "$HOME/.local/share/ollama"
+    "$HOME/.config/vllm" "$HOME/.cache/huggingface"
 )
 
-# Known agent process patterns
-PROCESS_REGEX="antigravity|claude|cline|aider|openhands|opencode|mcp|ollama|cursor|windsurf|cascade|roocode"
+# Known AI Binaries in PATH
+AI_BINS=(
+    "claude" "opencode" "antigravity" "aider" "ollama" 
+    "cursor" "windsurf" "openhands" "mcp" "cline"
+)
 
-echo -e "\033[1;34m[SCANNIG]\033[0m Deep-audit of AI footprints starting..."
+echo -e "\033[1;34m[DETECTOR]\033[0m Starting deep-audit for AI footprints..."
 echo "----------------------------------------------------"
 
-found_any=0
+found_count=0
 
-# 1. Check for directory existence
+# 1. Audit Filesystem Directories
 for dir in "${AI_DIRS[@]}"; do
     if [ -d "$dir" ] || [ -f "$dir" ]; then
         echo -e "\033[1;33m[FOUND]\033[0m Path: $dir"
-        found_any=1
+        ((found_count++))
         
-        # Check if any process is currently locking this folder
+        # Check if any process is currently holding a lock on this folder
         lock_info=$(lsof +D "$dir" 2>/dev/null)
         if [ ! -z "$lock_info" ]; then
-            echo -e "  \033[1;31m|-- ACTIVE LOCK:\033[0m A process is using this folder right now!"
-            echo "$lock_info" | awk 'NR>1 {print "  |   >> PID: "$2" ("$1")"}' | sort -u
+            echo -e "  \033[1;31m|-- ACTIVE LOCK:\033[0m $(echo "$lock_info" | awk 'NR>1 {print $1" (PID: "$2")"}' | head -n 1)"
         fi
     fi
 done
 
-# 2. Aggressive Process Check (matches full command line)
-echo -e "\n\033[1;34m[CHECKING]\033[0m Active AI processes..."
-active_procs=$(pgrep -af "$PROCESS_REGEX" | grep -v "detect-ai.sh")
-if [ ! -z "$active_procs" ]; then
-    echo -e "$active_procs" | awk '{print "\033[1;31m[ACTIVE]\033[0m PID: "$1" | Cmd: "$2" "$3}'
-    found_any=1
-else
-    echo "  >> No matching AI processes found."
-fi
-
-# 3. Project-Level "Marker" Files (Checks current directory)
-echo -e "\n\033[1;34m[CHECKING]\033[0m Project-level AI markers..."
-PROJECT_MARKERS=(".clinerules" ".cursorrules" ".windsurf" "CLAUDE.md" "beads.json" ".continuerc.json" ".aider*")
-for marker in "${PROJECT_MARKERS[@]}"; do
-    match=$(ls $marker 2>/dev/null)
-    if [ ! -z "$match" ]; then
-        echo -e "\033[1;35m[MARKER]\033[0m Found AI rule file: $match"
-        found_any=1
+# 2. Audit Installed Binaries
+for bin in "${AI_BINS[@]}"; do
+    if command -v "$bin" &> /dev/null; then
+        echo -e "\033[1;36m[BINARY]\033[0m $bin installed at: $(which "$bin")"
+        ((found_count++))
     fi
 done
 
-# 4. Local AI Port Scan
-echo -e "\n\033[1;34m[CHECKING]\033[0m AI Sidecar Ports (Ollama/MCP/Local APIs)..."
-# 11434: Ollama, 3000/8000/8080: Common for agent web UIs
-ports=$(ss -lntp | grep -E "11434|3000|8000|8080" | grep -v "grep")
-if [ ! -z "$ports" ]; then
-    echo -e "\033[1;35m[PORT]\033[0m Detected traffic on potential AI ports:\n$ports"
-    found_any=1
-fi
-
 echo "----------------------------------------------------"
-if [ $found_any -eq 0 ]; then
-    echo -e "\033[1;32m[CLEAN]\033[0m No AI footprints detected. You are in a blank state."
+if [ $found_count -eq 0 ]; then
+    echo -e "\033[1;32m[CLEAN]\033[0m No AI agent footprints found. System is a blank slate."
 else
-    echo -e "\033[1;31m[ALERT]\033[0m AI footprints detected. Use cleanup-ai.sh to purge."
+    echo -e "\033[1;31m[ALERT]\033[0m $found_count AI footprints detected. Use cleanup-ai.sh to purge."
 fi
