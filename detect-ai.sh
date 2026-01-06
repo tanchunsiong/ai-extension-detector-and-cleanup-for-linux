@@ -1,69 +1,80 @@
 #!/bin/bash
-# --- Interactive AI Cleanup & Removal ---
+# --- 2026 Extreme AI Agent & Footprint Detective ---
 
-# Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-NC='\033[0m'
+# Define all known AI-related hidden directories & IDE paths
+AI_DIRS=(
+    # Claude & Anthropic
+    "$HOME/.claude" "$HOME/.claude-code" "$HOME/.config/claude-code" "$HOME/.cache/claude-code"
+    # Cline, RooCode & VS Code agents
+    "$HOME/Cline" "$HOME/RooCode" "$HOME/.config/Code/User/globalStorage/saoudrizwan.claude-dev"
+    # Google Antigravity & Gemini
+    "$HOME/.antigravity" "$HOME/.gemini" "$HOME/.config/Antigravity" "$HOME/.cache/Antigravity"
+    # OpenCode & OpenDevin
+    "$HOME/.opencode" "$HOME/.open-devin" "$HOME/open-code" "$HOME/.config/opencode"
+    # Cursor, Windsurf & Continue
+    "$HOME/.cursor" "$HOME/.windsurf" "$HOME/.continue" "$HOME/.codeium" "$HOME/.config/Cursor"
+    # Aider & Misc CLI
+    "$HOME/.aider" "$HOME/.aider.conf.yml" "$HOME/.openhands" "$HOME/.supermaven"
+    # Local Inference
+    "$HOME/.ollama" "$HOME/.lmstudio"
+)
 
-clean_claude() {
-    printf "${BLUE}Purging Claude Code...${NC}\n"
-    npm uninstall -g @anthropic-ai/claude-code 2>/dev/null
-    rm -rf "$HOME/.claude" "$HOME/.claude-code" "$HOME/.config/claude-code" "$HOME/.claude.json"
-    echo -e "${GREEN}Claude cleared.${NC}"
-}
+# Known agent process patterns
+PROCESS_REGEX="antigravity|claude|cline|aider|openhands|opencode|mcp|ollama|cursor|windsurf|cascade|roocode"
 
-clean_cline() {
-    printf "${BLUE}Purging Cline...${NC}\n"
-    pkill -9 -f "saoudrizwan.claude-dev" || true
-    code --uninstall-extension saoudrizwan.claude-dev --force 2>/dev/null
-    rm -rf "$HOME/Cline" "$HOME/.config/Code/User/globalStorage/saoudrizwan.claude-dev"
-    echo -e "${GREEN}Cline cleared.${NC}"
-}
+echo -e "\033[1;34m[SCANNIG]\033[0m Deep-audit of AI footprints starting..."
+echo "----------------------------------------------------"
 
-clean_antigravity() {
-    printf "${BLUE}Purging Antigravity/Gemini...${NC}\n"
-    pkill -9 -f antigravity || true
-    sudo apt remove -y antigravity anti-gravity 2>/dev/null
-    sudo apt autoremove -y 2>/dev/null
-    rm -rf "$HOME/.antigravity" "$HOME/.gemini" "$HOME/.config/Antigravity"
-    echo -e "${GREEN}Antigravity cleared.${NC}"
-}
+found_any=0
 
-clean_opencode() {
-    printf "${BLUE}Purging OpenCode...${NC}\n"
-    pkill -9 -f "opencode|open-devin" || true
-    # Try multiple package managers for OpenCode
-    npm uninstall -g opencode-ai 2>/dev/null
-    sudo apt remove -y opencode 2>/dev/null
-    rm -rf "$HOME/.opencode" "$HOME/.config/opencode" "$HOME/.local/share/opencode" "$HOME/open-code"
-    echo -e "${GREEN}OpenCode cleared.${NC}"
-}
+# 1. Check for directory existence
+for dir in "${AI_DIRS[@]}"; do
+    if [ -d "$dir" ] || [ -f "$dir" ]; then
+        echo -e "\033[1;33m[FOUND]\033[0m Path: $dir"
+        found_any=1
+        
+        # Check if any process is currently locking this folder
+        lock_info=$(lsof +D "$dir" 2>/dev/null)
+        if [ ! -z "$lock_info" ]; then
+            echo -e "  \033[1;31m|-- ACTIVE LOCK:\033[0m A process is using this folder right now!"
+            echo "$lock_info" | awk 'NR>1 {print "  |   >> PID: "$2" ("$1")"}' | sort -u
+        fi
+    fi
+done
 
-echo -e "${BLUE}======================================${NC}"
-echo -e "${BLUE}    AI AGENT INTERACTIVE CLEANUP      ${NC}"
-echo -e "${BLUE}======================================${NC}"
-echo "1) Remove Claude Code"
-echo "2) Remove Cline"
-echo "3) Remove Antigravity / Gemini"
-echo "4) Remove OpenCode"
-echo -e "${RED}5) REMOVE ALL (Nuke Everything)${NC}"
-echo "6) Exit"
-echo "--------------------------------------"
-read -p "Select choice [1-6]: " choice
+# 2. Aggressive Process Check (matches full command line)
+echo -e "\n\033[1;34m[CHECKING]\033[0m Active AI processes..."
+active_procs=$(pgrep -af "$PROCESS_REGEX" | grep -v "detect-ai.sh")
+if [ ! -z "$active_procs" ]; then
+    echo -e "$active_procs" | awk '{print "\033[1;31m[ACTIVE]\033[0m PID: "$1" | Cmd: "$2" "$3}'
+    found_any=1
+else
+    echo "  >> No matching AI processes found."
+fi
 
-case $choice in
-    1) clean_claude ;;
-    2) clean_cline ;;
-    3) clean_antigravity ;;
-    4) clean_opencode ;;
-    5) 
-        echo -e "${RED}Final Warning: Nuking all AI agents...${NC}"
-        clean_claude; clean_cline; clean_antigravity; clean_opencode
-        ;;
-    6) exit 0 ;;
-    *) echo "Invalid choice." ;;
-esac
+# 3. Project-Level "Marker" Files (Checks current directory)
+echo -e "\n\033[1;34m[CHECKING]\033[0m Project-level AI markers..."
+PROJECT_MARKERS=(".clinerules" ".cursorrules" ".windsurf" "CLAUDE.md" "beads.json" ".continuerc.json" ".aider*")
+for marker in "${PROJECT_MARKERS[@]}"; do
+    match=$(ls $marker 2>/dev/null)
+    if [ ! -z "$match" ]; then
+        echo -e "\033[1;35m[MARKER]\033[0m Found AI rule file: $match"
+        found_any=1
+    fi
+done
 
-echo -e "\n${GREEN}Done. Your system is now prepped for Stage 8 orchestration.${NC}"
+# 4. Local AI Port Scan
+echo -e "\n\033[1;34m[CHECKING]\033[0m AI Sidecar Ports (Ollama/MCP/Local APIs)..."
+# 11434: Ollama, 3000/8000/8080: Common for agent web UIs
+ports=$(ss -lntp | grep -E "11434|3000|8000|8080" | grep -v "grep")
+if [ ! -z "$ports" ]; then
+    echo -e "\033[1;35m[PORT]\033[0m Detected traffic on potential AI ports:\n$ports"
+    found_any=1
+fi
+
+echo "----------------------------------------------------"
+if [ $found_any -eq 0 ]; then
+    echo -e "\033[1;32m[CLEAN]\033[0m No AI footprints detected. You are in a blank state."
+else
+    echo -e "\033[1;31m[ALERT]\033[0m AI footprints detected. Use cleanup-ai.sh to purge."
+fi
