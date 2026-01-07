@@ -27,13 +27,13 @@
     },
     "juniorchun": {
       "mode": "subagent",
-      "model": "anthropic/claude-4-5-sonnet-20251025",
+      "model": "anthropic/claude-sonnet-4-20250514",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback": false
     },
     "internchun": {
       "mode": "subagent",
-      "model": "anthropic/claude-4-5-sonnet-20251025",
+      "model": "anthropic/claude-sonnet-4-20250514",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback": false
     },
