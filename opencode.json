@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "model": "anthropic/claude-opus-4-5-20251101",
+      "description": "Lead Developer: Heavy coding and logic (Claude Pro)"
+    },
+    "plan": {
+      "mode": "primary",
+      "model": "anthropic/claude-opus-4-5-20251101",
+      "description": "Architect: High-level planning (Claude Pro)",
+      "write": false
+    },
+    "herochun": {
+      "mode": "subagent",
+      "model": "anthropic/claude-opus-4-5-20251101",
+      "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
+      "fallback":false,
+     },
+    "bobthebuilder": {
+      "mode": "subagent",
+      "model": "anthropic/claude-opus-4-5-20251101",
+      "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
+      "fallback":false,
+     },
+    "intern2": {
+      "mode": "subagent",
+      "model": "openrouter/x-ai/grok-code-fast-1",
+      "description": "Assistant: Boilerplate, logs, and small fixes (Free/Cheap)",
+      "system": "You are a junior developer. Follow instructions exactly, don't overthink, and focus on speed for repetitive tasks like adding logs or fixing typos.",
+      "fallback":false,
+      "params": { "include_reasoning": false }
+    },
+    "intern": {
+      "mode": "subagent",
+      "model": "openrouter/x-ai/grok-code-fast-1",
+      "description": "Assistant: Boilerplate, logs, and small fixes (Free/Cheap)",
+      "system": "You are a junior developer. Follow instructions exactly, don't overthink, and focus on speed for repetitive tasks like adding logs or fixing typos.",
+      "fallback":false,
+      "params": { "include_reasoning": false }
+    },
+    "tester-gemini-flash": {
+      "mode": "subagent",
+      "model": "openrouter/google/gemini-2.5-flash",
+      "description": "Scans the entire repo for integration bugs.",
+      "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You  have a 1M token window. Read all files in the 'src' folder. ",
+      "fallback":false,
+    },
+
+  },
+  "default_agent": "plan"
+}
