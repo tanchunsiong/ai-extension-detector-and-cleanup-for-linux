@@ -36,6 +36,24 @@
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback":false,
      },
+    "chinese-chun-deepseek": {
+      "mode": "subagent",
+      "model": "openrouter/deepseek/deepseek-r1",
+      "description": "Math Specialist: Solves complex proofs and verify logic.",
+      "system": "You are a mathematical researcher. Use Chain-of-Thought reasoning to solve formulas and verify steps. Do not skip calculations.",
+      "write": false,
+      "fallback": false,
+      "params": {
+        "include_reasoning": true
+      }
+    },
+    "chinese-chun-qwen": {
+      "mode": "subagent",
+      "model": "openrouter/qwen/qwen3-coder-480b-instruct",
+      "description": "Data Specialist: Analyzes astronomical tables and planetary data.",
+      "system": "You are an expert in astronomy and astrological data structures. Analyze ephemeris charts and find planetary patterns with high precision.",
+      "write": false,
+    },
     "intern2": {
       "mode": "subagent",
       "model": "openrouter/x-ai/grok-code-fast-1",
