@@ -24,6 +24,18 @@
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback":false,
      },
+      "juniorchun": {
+      "mode": "subagent",
+      "model": "anthropic/claude-4-5-sonnet-20251025",
+      "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
+      "fallback":false,
+     },
+      "internchun": {
+      "mode": "subagent",
+      "model": "anthropic/claude-4-5-sonnet-20251025",
+      "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
+      "fallback":false,
+     },
     "intern2": {
       "mode": "subagent",
       "model": "openrouter/x-ai/grok-code-fast-1",
