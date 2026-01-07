@@ -38,7 +38,7 @@
      },
     "chinese-chun-deepseek": {
       "mode": "subagent",
-      "model": "openrouter/deepseek/deepseek-r1",
+      "model": "openrouter/deepseek/deepseek-r1-distill-qwen-32b",
       "description": "Math Specialist: Solves complex proofs and verify logic.",
       "system": "You are a mathematical researcher. Use Chain-of-Thought reasoning to solve formulas and verify steps. Do not skip calculations.",
       "write": false,
@@ -49,7 +49,7 @@
     },
     "chinese-chun-qwen": {
       "mode": "subagent",
-      "model": "openrouter/qwen/qwen3-coder-480b-instruct",
+      "model": "openrouter/qwen/qwen2.5-vl-32b-instruct",
       "description": "Data Specialist: Analyzes astronomical tables and planetary data.",
       "system": "You are an expert in astronomy and astrological data structures. Analyze ephemeris charts and find planetary patterns with high precision.",
       "write": false,
