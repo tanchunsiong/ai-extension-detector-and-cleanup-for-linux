@@ -1,3 +1,4 @@
+
 {
   "$schema": "https://opencode.ai/config.json",
   "agent": {
@@ -16,68 +17,81 @@
       "mode": "subagent",
       "model": "anthropic/claude-opus-4-5-20251101",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
-      "fallback":false,
-     },
+      "fallback": false
+    },
     "bobthebuilder": {
       "mode": "subagent",
       "model": "anthropic/claude-opus-4-5-20251101",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
-      "fallback":false,
-     },
-      "juniorchun": {
+      "fallback": false
+    },
+    "juniorchun": {
       "mode": "subagent",
       "model": "anthropic/claude-4-5-sonnet-20251025",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
-      "fallback":false,
-     },
-      "internchun": {
+      "fallback": false
+    },
+    "internchun": {
       "mode": "subagent",
       "model": "anthropic/claude-4-5-sonnet-20251025",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
-      "fallback":false,
-     },
-    "chinese-chun-deepseek": {
+      "fallback": false
+    },
+    "chinese-chun-minimax": {
       "mode": "subagent",
-      "model": "openrouter/deepseek/deepseek-r1-distill-qwen-32b",
+      "model": "openrouter/minimax/minimax-m2.1",
       "description": "Math Specialist: Solves complex proofs and verify logic.",
       "system": "You are a mathematical researcher. Use Chain-of-Thought reasoning to solve formulas and verify steps. Do not skip calculations.",
-      "write": false,
-      "fallback": false,
-      "params": {
-        "include_reasoning": true
-      }
+     "fallback": false,
     },
     "chinese-chun-qwen": {
       "mode": "subagent",
-      "model": "openrouter/qwen/qwen2.5-vl-32b-instruct",
+      "model": "openrouter/qwen/qwen-2.5-coder-32b-instruct",
       "description": "Data Specialist: Analyzes astronomical tables and planetary data.",
       "system": "You are an expert in astronomy and astrological data structures. Analyze ephemeris charts and find planetary patterns with high precision.",
-      "write": false,
+      "write": false
+    },
+    "chinese-chun-deepseek": {
+      "mode": "subagent",
+      "model": "openrouter/deepseek/deepseek-r1-distill-qwen-14b",
+      "description": "Math Specialist: Solves complex proofs and verify logic using DeepSeek R1.",
+      "system": "You are a mathematical researcher using DeepSeek R1. Use Chain-of-Thought reasoning to solve formulas and verify steps. Do not skip calculations.",
+     "fallback": false
+    },
+    "chinese-chun-kimi": {
+      "mode": "subagent",
+      "model": "openrouter/moonshotai/kimi-k2",
+      "description": "Data Specialist: Analyzes data using Qwen QwQ-32B reasoning model.",
+      "system": "You are an expert data analyst using Qwen QwQ-32B. Analyze data structures, find patterns, and provide detailed reasoning for your conclusions.",
+      "fallback": false
     },
     "intern2": {
       "mode": "subagent",
       "model": "openrouter/x-ai/grok-code-fast-1",
       "description": "Assistant: Boilerplate, logs, and small fixes (Free/Cheap)",
       "system": "You are a junior developer. Follow instructions exactly, don't overthink, and focus on speed for repetitive tasks like adding logs or fixing typos.",
-      "fallback":false,
-      "params": { "include_reasoning": false }
+      "fallback": false,
+      "params": {
+        "include_reasoning": false
+      }
     },
     "intern": {
       "mode": "subagent",
       "model": "openrouter/x-ai/grok-code-fast-1",
       "description": "Assistant: Boilerplate, logs, and small fixes (Free/Cheap)",
       "system": "You are a junior developer. Follow instructions exactly, don't overthink, and focus on speed for repetitive tasks like adding logs or fixing typos.",
-      "fallback":false,
-      "params": { "include_reasoning": false }
+      "fallback": false,
+      "params": {
+        "include_reasoning": false
+      }
     },
     "tester-gemini-flash": {
       "mode": "subagent",
-      "model": "openrouter/google/gemini-2.5-flash",
+       "model": "openrouter/google/gemini-2.5-flash",
       "description": "Scans the entire repo for integration bugs.",
-      "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You  have a 1M token window. Read all files in the 'src' folder. ",
-      "fallback":false,
-    },
-
+      "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
+      "fallback": false
+    }
   },
   "default_agent": "plan"
 }
