@@ -91,23 +91,23 @@
     },
      "tester-haiku-45": {
       "mode": "subagent",
-      "model": "anthropic/claude-opus-4-5-20251101",
-      "description": "Scans the entire repo for integration bugs.",
-      "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
+      "model": "anthropic/claude-haiku-4-5-20251001",
+      "description": "Scans the entire repo for issues mentioned",
+      "system": "You are the final Quality control and Quality Assurance engineer before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
       "fallback": false
     },
     "tester-gemini-flash25": {
       "mode": "subagent",
       "model": "openrouter/google/gemini-2.5-flash",
-      "description": "Scans the entire repo for integration bugs.",
-      "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
+      "description": "Scans the entire repo for issues mentioned.",
+      "system": "You are the final Quality control and Quality Assurance engineer before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
       "fallback": false
     },
     "tester-gemini-flash2-001": {
       "mode": "subagent",
       "model": "openrouter/google/gemini-2.0-flash-001",
-      "description": "Scans the entire repo for integration bugs.",
-      "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
+      "description": "Scans the entire repo for issues mentioned",
+      "system": "You are the final Quality control and Quality Assurance engineer before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
       "fallback": false
     }
   },
