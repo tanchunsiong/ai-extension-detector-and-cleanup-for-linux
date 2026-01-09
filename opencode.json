@@ -91,6 +91,13 @@
         "include_reasoning": false
       }
     },
+    "tester-haiku-45": {
+      "mode": "subagent",
+       "model": "anthropic/claude-haiku-4-5-20251001",
+      "description": "Scans the entire repo for integration bugs.",
+      "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
+      "fallback": false
+    },
     "tester-gemini-flash25": {
       "mode": "subagent",
        "model": "openrouter/google/gemini-2.5-flash",
