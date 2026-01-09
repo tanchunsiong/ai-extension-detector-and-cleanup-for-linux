@@ -1,5 +1,4 @@
-
-{
+ {
   "$schema": "https://opencode.ai/config.json",
   "agent": {
     "build": {
@@ -48,7 +47,7 @@
       "model": "openrouter/minimax/minimax-m2.1",
       "description": "Math Specialist: Solves complex proofs and verify logic.",
       "system": "You are a mathematical researcher. Use Chain-of-Thought reasoning to solve formulas and verify steps. Do not skip calculations.",
-     "fallback": false,
+      "fallback": false
     },
     "chinese-chun-qwen": {
       "mode": "subagent",
@@ -62,7 +61,7 @@
       "model": "openrouter/deepseek/deepseek-r1-distill-qwen-14b",
       "description": "Math Specialist: Solves complex proofs and verify logic using DeepSeek R1.",
       "system": "You are a mathematical researcher using DeepSeek R1. Use Chain-of-Thought reasoning to solve formulas and verify steps. Do not skip calculations.",
-     "fallback": false
+      "fallback": false
     },
     "chinese-chun-kimi": {
       "mode": "subagent",
@@ -91,27 +90,95 @@
         "include_reasoning": false
       }
     },
-    "tester-haiku-45": {
+     "tester-haiku-45": {
       "mode": "subagent",
-       "model": "anthropic/claude-haiku-4-5-20251001",
+      "model": "anthropic/claude-opus-4-5-20251101",
       "description": "Scans the entire repo for integration bugs.",
       "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
       "fallback": false
     },
     "tester-gemini-flash25": {
       "mode": "subagent",
-       "model": "openrouter/google/gemini-2.5-flash",
+      "model": "openrouter/google/gemini-2.5-flash",
       "description": "Scans the entire repo for integration bugs.",
       "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
       "fallback": false
     },
     "tester-gemini-flash2-001": {
       "mode": "subagent",
-       "model": "openrouter/google/gemini-2.0-flash-001",
+      "model": "openrouter/google/gemini-2.0-flash-001",
       "description": "Scans the entire repo for integration bugs.",
       "system": "You are the final Quality control and Quality Assurance tester before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
       "fallback": false
-    },
+    }
   },
-  "default_agent": "plan"
+  "default_agent": "plan",
+  "plugin": [
+    "oh-my-opencode",
+    "opencode-antigravity-auth@1.2.8",
+    "file:///home/dreamtcs/opencode-anthropic-auth/index.mjs"
+  ],
+  "provider": {
+    "google": {
+      "name": "Google",
+      "models": {
+        "antigravity-gemini-3-pro-high": {
+          "name": "Gemini 3 Pro High (Antigravity)",
+          "thinking": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "antigravity-gemini-3-pro-low": {
+          "name": "Gemini 3 Pro Low (Antigravity)",
+          "thinking": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "name": "Gemini 3 Flash (Antigravity)",
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        }
+      }
+    }
+  }
 }
