@@ -13,6 +13,12 @@
       "description": "Architect: High-level planning (Claude Pro)",
       "write": false
     },
+    "plan2": {
+      "mode": "primary",
+      "model": "openrouter/anthropic/claude-opus-4-5-20251101",
+      "description": "Architect: High-level planning (Claude Pro)",
+      "write": false
+    },
     "herochun": {
       "mode": "subagent",
       "model": "anthropic/claude-opus-4-5-20251101",
