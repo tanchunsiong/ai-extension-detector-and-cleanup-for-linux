@@ -53,8 +53,7 @@
       "mode": "subagent",
       "model": "openrouter/qwen/qwen-2.5-coder-32b-instruct",
       "description": "Data Specialist: Analyzes astronomical tables and planetary data.",
-      "system": "You are an expert in astronomy and astrological data structures. Analyze ephemeris charts and find planetary patterns with high precision.",
-      "write": false
+      "system": "You are an expert in astronomy and astrological data structures. Analyze ephemeris charts and find planetary patterns with high precision"
     },
     "chinese-chun-deepseek": {
       "mode": "subagent",
