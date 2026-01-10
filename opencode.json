@@ -114,8 +114,7 @@
   "default_agent": "plan",
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.2.8",
-    "file:///home/dreamtcs/opencode-anthropic-auth/index.mjs"
+    "opencode-antigravity-auth@1.2.8"
   ],
   "provider": {
     "google": {
