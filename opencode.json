@@ -114,7 +114,8 @@
   "default_agent": "plan",
   "plugin": [
     "oh-my-opencode",
-    "opencode-antigravity-auth@1.2.8"
+    "opencode-antigravity-auth@1.2.8",
+    "opencode-anthropic-auth@latest",
   ],
   "provider": {
     "google": {
