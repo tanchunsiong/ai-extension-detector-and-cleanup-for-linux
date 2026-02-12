@@ -132,6 +132,38 @@
               "text"
             ]
           }
+        },
+        "qwen/qwen3-coder-next": {
+          "name": "Qwen3 Coder Next",
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        }
+      }
+    },
+       "qwen/qwen3-coder-next": {
+          "name": "Qwen3 Coder Next",
+          "limit": {
+            "context": 262144,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
         }
       }
     },
