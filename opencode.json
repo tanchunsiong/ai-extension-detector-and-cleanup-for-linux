@@ -1,47 +1,54 @@
- {
+
+{
   "$schema": "https://opencode.ai/config.json",
-  "agent": {
+    "agent": {
     "build": {
       "mode": "primary",
       "model": "anthropic/claude-opus-4-5-20251101",
-      "description": "Lead Developer: Heavy coding and logic (Claude Pro)"
+      "description": "Lead Developer: Heavy coding and logic "
     },
     "plan": {
       "mode": "primary",
       "model": "anthropic/claude-opus-4-5-20251101",
-      "description": "Architect: High-level planning (Claude Pro)",
+      "description": "Architect: High-level planning ",
       "write": false
     },
-    "plan2": {
+    "freebuilder": {
       "mode": "primary",
-      "model": "openrouter/anthropic/claude-opus-4-5-20251101",
-      "description": "Architect: High-level planning (Claude Pro)",
+      "model": "openrouter/openrouter/aurora-alpha",
+      "description": "Lead Developer: Heavy coding and logic "
+    },
+    "freeplanner": {
+      "mode": "primary",
+      "model": "openrouter/openrouter/aurora-alpha",
+      "description": "Architect: High-level planning",
       "write": false
     },
     "herochun": {
-      "mode": "subagent",
-      "model": "anthropic/claude-opus-4-5-20251101",
+      "mode": "primary",
+      "model": "openrouter/qwen/qwen3-coder-next",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback": false
     },
     "bobthebuilder": {
-      "mode": "subagent",
-      "model": "anthropic/claude-opus-4-5-20251101",
+      "mode": "primary",
+      "model": "openrouter/z-ai/glm-5",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback": false
     },
-    "juniorchun": {
-      "mode": "subagent",
-      "model": "anthropic/claude-sonnet-4-20250514",
+    "juniorherochun": {
+      "mode": "primary",
+      "model": "openrouter/moonshotai/kimi-k2.5",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback": false
     },
-    "internchun": {
-      "mode": "subagent",
-      "model": "anthropic/claude-sonnet-4-20250514",
+    "juniorbobthebuilder": {
+      "mode": "primary",
+      "model": "openrouter/deepseek/deepseek-v3.2",
       "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback": false
     },
+
     "chinese-chun-minimax": {
       "mode": "subagent",
       "model": "openrouter/minimax/minimax-m2.1",
@@ -49,27 +56,13 @@
       "system": "You are a mathematical researcher. Use Chain-of-Thought reasoning to solve formulas and verify steps. Do not skip calculations.",
       "fallback": false
     },
-    "chinese-chun-qwen": {
+    "internchun": {
       "mode": "subagent",
-      "model": "openrouter/qwen/qwen-2.5-coder-32b-instruct",
-      "description": "Data Specialist: Analyzes astronomical tables and planetary data.",
-      "system": "You are an expert in astronomy and astrological data structures. Analyze ephemeris charts and find planetary patterns with high precision"
-    },
-    "chinese-chun-deepseek": {
-      "mode": "subagent",
-      "model": "openrouter/deepseek/deepseek-r1-distill-qwen-14b",
-      "description": "Math Specialist: Solves complex proofs and verify logic using DeepSeek R1.",
-      "system": "You are a mathematical researcher using DeepSeek R1. Use Chain-of-Thought reasoning to solve formulas and verify steps. Do not skip calculations.",
+      "model": "openrouter/x-ai/grok-4.1-fast",
+      "description": "Lead Developer: Heavy coding and logic (Claude Pro)",
       "fallback": false
     },
-    "chinese-chun-kimi": {
-      "mode": "subagent",
-      "model": "openrouter/moonshotai/kimi-k2",
-      "description": "Data Specialist: Analyzes data using Qwen QwQ-32B reasoning model.",
-      "system": "You are an expert data analyst using Qwen QwQ-32B. Analyze data structures, find patterns, and provide detailed reasoning for your conclusions.",
-      "fallback": false
-    },
-    "intern2": {
+    "internchun2": {
       "mode": "subagent",
       "model": "openrouter/x-ai/grok-code-fast-1",
       "description": "Assistant: Boilerplate, logs, and small fixes (Free/Cheap)",
@@ -79,31 +72,21 @@
         "include_reasoning": false
       }
     },
-    "intern": {
-      "mode": "subagent",
-      "model": "openrouter/x-ai/grok-code-fast-1",
-      "description": "Assistant: Boilerplate, logs, and small fixes (Free/Cheap)",
-      "system": "You are a junior developer. Follow instructions exactly, don't overthink, and focus on speed for repetitive tasks like adding logs or fixing typos.",
-      "fallback": false,
-      "params": {
-        "include_reasoning": false
-      }
-    },
-     "tester-haiku-45": {
+     "tester-deep": {
       "mode": "subagent",
       "model": "anthropic/claude-haiku-4-5-20251001",
       "description": "Scans the entire repo for issues mentioned",
       "system": "You are the final Quality control and Quality Assurance engineer before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
       "fallback": false
     },
-    "tester-gemini-flash25": {
+    "tester-fast": {
       "mode": "subagent",
       "model": "openrouter/google/gemini-2.5-flash",
       "description": "Scans the entire repo for issues mentioned.",
       "system": "You are the final Quality control and Quality Assurance engineer before the code is realised to production. You have a 1M token window. Read all files in the 'src' folder.",
       "fallback": false
     },
-    "tester-gemini-flash2-001": {
+    "qa-fast": {
       "mode": "subagent",
       "model": "openrouter/google/gemini-2.0-flash-001",
       "description": "Scans the entire repo for issues mentioned",
@@ -111,39 +94,52 @@
       "fallback": false
     }
   },
-  "default_agent": "plan",
   "plugin": [
-    "oh-my-opencode",
-    "opencode-antigravity-auth@1.2.8",
-    "opencode-anthropic-auth@latest",
+    "opencode-antigravity-auth@1.5.1"
   ],
   "provider": {
-    "google": {
-      "name": "Google",
+    "openrouter": {
+      "name": "OpenRouter",
       "models": {
-        "antigravity-gemini-3-pro-high": {
-          "name": "Gemini 3 Pro High (Antigravity)",
-          "thinking": true,
-          "attachment": true,
+        "z-ai/glm-5": {
+          "name": "Z.ai GLM 5",
           "limit": {
-            "context": 1048576,
-            "output": 65535
+            "context": 200000,
+            "output": 130000
           },
           "modalities": {
             "input": [
               "text",
-              "image",
-              "pdf"
+              "image"
             ],
             "output": [
               "text"
             ]
           }
         },
-        "antigravity-gemini-3-pro-low": {
-          "name": "Gemini 3 Pro Low (Antigravity)",
-          "thinking": true,
-          "attachment": true,
+        "openrouter/aurora-alpha": {
+          "name": "Aurora Alpha",
+          "limit": {
+            "context": 128000,
+            "output": 50000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        }
+      }
+    },
+    "google": {
+      "name": "Google",
+      "models": {
+        "antigravity-gemini-3-pro": {
+          "name": "Gemini 3 Pro (Antigravity)",
           "limit": {
             "context": 1048576,
             "output": 65535
@@ -157,11 +153,18 @@
             "output": [
               "text"
             ]
+          },
+          "variants": {
+            "low": {
+              "thinkingLevel": "low"
+            },
+            "high": {
+              "thinkingLevel": "high"
+            }
           }
         },
         "antigravity-gemini-3-flash": {
           "name": "Gemini 3 Flash (Antigravity)",
-          "attachment": true,
           "limit": {
             "context": 1048576,
             "output": 65536
@@ -175,6 +178,95 @@
             "output": [
               "text"
             ]
+          },
+          "variants": {
+            "minimal": {
+              "thinkingLevel": "minimal"
+            },
+            "low": {
+              "thinkingLevel": "low"
+            },
+            "medium": {
+              "thinkingLevel": "medium"
+            },
+            "high": {
+              "thinkingLevel": "high"
+            }
+          }
+        },
+        "antigravity-claude-sonnet-4-5": {
+          "name": "Claude Sonnet 4.5 (Antigravity)",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "antigravity-claude-sonnet-4-5-thinking": {
+          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
+          }
+        },
+        "antigravity-claude-opus-4-5-thinking": {
+          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "variants": {
+            "low": {
+              "thinkingConfig": {
+                "thinkingBudget": 8192
+              }
+            },
+            "max": {
+              "thinkingConfig": {
+                "thinkingBudget": 32768
+              }
+            }
           }
         }
       }
