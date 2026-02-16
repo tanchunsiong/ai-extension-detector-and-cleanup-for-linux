@@ -33,6 +33,7 @@
             "name": "Minimax M2.5",
             "reasoning": true,
             "input": ["text","image"],
+            "output": ["text", "json"],
             "contextWindow": 204800,
             "maxTokens": 131072
           },
@@ -57,7 +58,7 @@
           {
             "id": "z-ai/glm-5",
             "name": "Z.ai GLM 5",
-            "reasoning": false,
+            "reasoning": true,
             "input": ["text","image"],
             "output": ["text", "json"],
             "contextWindow": 204800,
@@ -73,7 +74,8 @@
             "id": "moonshotai/kimi-k2.5",
             "name": "Kimi K2.5 (NVIDIA)",
             "reasoning": true,
-            "input": ["text"],
+            "input": ["text", "image"],
+            "output": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384
           },
@@ -81,7 +83,8 @@
             "id": "z-ai/glm4.7",
             "name": "GLM 4.7",
             "reasoning": false,
-            "input": ["text"],
+          "input": ["text"],
+            "output": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384
           },
@@ -89,7 +92,8 @@
             "id": "minimaxai/minimax-m2.5",
             "name": "MiniMax M2.5",
             "reasoning": false,
-            "input": ["text"],
+            "input": ["text", "image"],
+            "output": ["text"],
             "contextWindow": 131072,
             "maxTokens": 16384
           }
@@ -103,30 +107,14 @@
         "primary": "openrouter/openrouter/auto"
       },
       "models": {
-        "openrouter/openrouter/auto": {
-          "alias": "Openrouter Auto"
-        },
-        "openrouter/moonshotai/kimi-k2.5": {
-          "alias": "Kimi K2.5"
-        },
-        "openrouter/qwen/qwen3-coder-next": {
-          "alias": "Qwen3 Coder Next"
-        },
-        "openrouter/minimax/minimax-m2.5": {
-          "alias": "Minimax M2.5"
-        },
-        "openrouter/z-ai/glm-5": {
-          "alias": "Z.ai GLM 5"
-        },
-        "nvidia/moonshotai/kimi-k2.5": {
-          "alias": "Kimi K2.5 (NVIDIA)"
-        },
-        "nvidia/z-ai/glm4.7": {
-          "alias": "GLM 4.7"
-        },
-        "nvidia/minimaxai/minimax-m2.5": {
-          "alias": "MiniMax M2.5"
-        }
+      "openrouter/openrouter/auto": { "alias": "Openrouter Auto" },
+        "openrouter/moonshotai/kimi-k2.5": { "alias": "Kimi K2.5" },
+        "openrouter/qwen/qwen3-coder-next": { "alias": "Qwen3 Coder Next" },
+        "openrouter/minimax/minimax-m2.5": { "alias": "Minimax M2.5" },
+        "openrouter/z-ai/glm-5": { "alias": "Z.ai GLM 5" },
+        "nvidia/moonshotai/kimi-k2.5": { "alias": "Kimi K2.5 (NVIDIA)" },
+        "nvidia/minimaxai/minimax-m2.5": { "alias": "MiniMax M2.5" },
+        "nvidia/z-ai/glm4.7": { "alias": "GLM 4.7" }
       },
       "workspace": "/home/dreamtcs/.openclaw/workspace",
       "compaction": {
