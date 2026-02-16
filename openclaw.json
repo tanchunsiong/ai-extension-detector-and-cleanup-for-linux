@@ -29,12 +29,12 @@
         "api": "openai-completions",
         "models": [
           {
-            "id": "openrouter/pony-alpha",
-            "name": "Pony Alpha",
+            "id": "minimax/minimax-m2.5",
+            "name": "Minimax M2.5",
             "reasoning": true,
             "input": ["text"],
-            "contextWindow": 200000,
-            "maxTokens": 131000
+            "contextWindow": 196608,
+            "maxTokens": 131100
           },
           {
             "id": "moonshotai/kimi-k2.5",
@@ -42,7 +42,7 @@
             "reasoning": true,
             "input": ["text"],
             "contextWindow": 262144,
-            "maxTokens": 8192
+            "maxTokens": 65536
           },
           {
             "id": "qwen/qwen3-coder-next",
@@ -51,6 +51,14 @@
             "input": ["text"],
             "contextWindow": 262144,
             "maxTokens": 65536
+          },
+          {
+            "id": "z-ai/glm-5",
+            "name": "Z.ai GLM 5",
+            "reasoning": false,
+            "input": ["text"],
+            "contextWindow": 204800,
+            "maxTokens": 131000
           }
         ]
       },
@@ -75,16 +83,8 @@
             "maxTokens": 16384
           },
           {
-            "id": "deepseek-ai/deepseek-v3.2",
-            "name": "DeepSeek V3.2",
-            "reasoning": false,
-            "input": ["text"],
-            "contextWindow": 131072,
-            "maxTokens": 16384
-          },
-          {
-            "id": "minimaxai/minimax-m2.1",
-            "name": "MiniMax M2.1",
+            "id": "minimaxai/minimax-m2.5",
+            "name": "MiniMax M2.5",
             "reasoning": false,
             "input": ["text"],
             "contextWindow": 131072,
@@ -97,17 +97,23 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "openrouter/openrouter/pony-alpha"
+        "primary": "openrouter/openrouter/auto"
       },
       "models": {
-        "openrouter/openrouter/pony-alpha": {
-          "alias": "Pony Alpha"
+        "openrouter/openrouter/auto": {
+          "alias": "Openrouter Auto"
         },
         "openrouter/moonshotai/kimi-k2.5": {
           "alias": "Kimi K2.5"
         },
         "openrouter/qwen/qwen3-coder-next": {
           "alias": "Qwen3 Coder Next"
+        },
+        "openrouter/minimax/minimax-m2.5": {
+          "alias": "Minimax M2.5"
+        },
+        "openrouter/z-ai/glm-5": {
+          "alias": "Z.ai GLM 5"
         },
         "nvidia/moonshotai/kimi-k2.5": {
           "alias": "Kimi K2.5 (NVIDIA)"
