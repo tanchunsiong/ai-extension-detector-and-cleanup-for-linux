@@ -32,15 +32,16 @@
             "id": "minimax/minimax-m2.5",
             "name": "Minimax M2.5",
             "reasoning": true,
-            "input": ["text"],
-            "contextWindow": 196608,
-            "maxTokens": 131100
+            "input": ["text","image"],
+            "contextWindow": 204800,
+            "maxTokens": 131072
           },
           {
             "id": "moonshotai/kimi-k2.5",
             "name": "Kimi K2.5",
             "reasoning": true,
-            "input": ["text"],
+            "input": ["text","image"],
+            "output": ["text", "json"],
             "contextWindow": 262144,
             "maxTokens": 65536
           },
@@ -49,16 +50,18 @@
             "name": "Qwen3 Coder Next",
             "reasoning": false,
             "input": ["text"],
-            "contextWindow": 262144,
+            "output": ["text", "code", "json"],
+            "contextWindow": 256000,
             "maxTokens": 65536
           },
           {
             "id": "z-ai/glm-5",
             "name": "Z.ai GLM 5",
             "reasoning": false,
-            "input": ["text"],
+            "input": ["text","image"],
+            "output": ["text", "json"],
             "contextWindow": 204800,
-            "maxTokens": 131000
+            "maxTokens": 131072
           }
         ]
       },
@@ -121,11 +124,8 @@
         "nvidia/z-ai/glm4.7": {
           "alias": "GLM 4.7"
         },
-        "nvidia/deepseek-ai/deepseek-v3.2": {
-          "alias": "DeepSeek V3.2"
-        },
-        "nvidia/minimaxai/minimax-m2.1": {
-          "alias": "MiniMax M2.1"
+        "nvidia/minimaxai/minimax-m2.5": {
+          "alias": "MiniMax M2.5"
         }
       },
       "workspace": "/home/dreamtcs/.openclaw/workspace",
